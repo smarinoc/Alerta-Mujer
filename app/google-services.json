@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "547647284061",
+    "project_id": "alertastempranas-2022",
+    "storage_bucket": "alertastempranas-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547647284061:android:7e8e4c3365bdbbbf917eb4",
+        "android_client_info": {
+          "package_name": "com.udea.alerta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547647284061-uv6m3dtejogjkq8dfl73s22gdvlvo7ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb380dhcQH6UqY6V5_eyDHxI0fvMufJUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547647284061-uv6m3dtejogjkq8dfl73s22gdvlvo7ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
