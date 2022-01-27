@@ -3,6 +3,7 @@ package com.udea.alerta.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,13 +25,12 @@ fun ScreenMain() {
             fontSize = 20.sp,
             modifier = Modifier.padding(vertical = 5.dp)
         )
-        Box(
+        Button(
             modifier = Modifier
-
                 .size(200.dp)
                 .clip(CircleShape)
                 .background(Color.Red),
-            contentAlignment = Alignment.Center
+            onClick = {println("other message")}
 
         ) {
             Text(text = "Alerta", color = Color.Yellow, fontSize = 50.sp)

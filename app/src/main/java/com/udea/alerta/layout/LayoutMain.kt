@@ -8,10 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.udea.alerta.composables.Menu
-import com.udea.alerta.screen.ScreenAyuda
-import com.udea.alerta.screen.ScreenEncuesta
-import com.udea.alerta.screen.ScreenGuardian
-import com.udea.alerta.screen.ScreenGuardianes
+import com.udea.alerta.screen.*
 import com.udea.alerta.ui.theme.ColorBackground
 
 @Composable
@@ -23,8 +20,8 @@ fun LayoutMain() {
             .background(color = ColorBackground)
     ) {
         Menu()
-        //ScreenMain()
-        ScreenGuardianes()
+        ScreenMain()
+        //ScreenGuardianes()
         //ScreenGuardian()
         //ScreenAyuda()
         //ScreenEncuesta()

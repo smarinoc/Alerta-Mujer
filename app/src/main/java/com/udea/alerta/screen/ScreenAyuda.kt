@@ -94,7 +94,7 @@ fun ItemAyuda(nombre: String, numero: String, descripcion: String) {
             ButtonBasic(
                 text = "LLAMAR", modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
-                    .width(150.dp)
+                    .width(150.dp), onClick = {}
             )
         }
     }

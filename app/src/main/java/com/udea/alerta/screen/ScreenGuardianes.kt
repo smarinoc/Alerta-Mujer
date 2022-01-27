@@ -41,7 +41,7 @@ fun ScreenGuardianes(){
         
         item{
             ButtonBasic(text = "Agregar", modifier = Modifier.fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp)))
+                .clip(RoundedCornerShape(10.dp)), onClick = {})
         }
     }
 }

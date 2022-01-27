@@ -14,9 +14,9 @@ fun Menu() {
             .requiredHeight(height = 55.dp)
             .padding(all = 2.dp)
     ) {
-        ButtonBasic(text = "GUARDIANES", modifier = Modifier.weight(1f))
-        ButtonBasic(text = "AYUDA", modifier = Modifier.weight(1f))
-        ButtonBasic(text = "TEST", modifier = Modifier.weight(1f))
+        ButtonBasic(text = "GUARDIANES", modifier = Modifier.weight(1f), onClick = {})
+        ButtonBasic(text = "AYUDA", modifier = Modifier.weight(1f), onClick = {})
+        ButtonBasic(text = "TEST", modifier = Modifier.weight(1f), onClick = {})
     }
 
 }

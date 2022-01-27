@@ -71,11 +71,11 @@ fun ScreenGuardian() {
             ){
                 ButtonBasic(text = "Guardar", modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
-                    .width(150.dp))
+                    .width(150.dp), onClick = {})
                 Spacer(modifier = Modifier.width(50.dp))
                 ButtonBasic(text = "Eliminar", modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
-                    .width(150.dp))
+                    .width(150.dp), onClick = {})
             }
         }}
 
