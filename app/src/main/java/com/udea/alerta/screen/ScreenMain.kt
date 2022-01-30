@@ -33,7 +33,7 @@ fun ScreenMain() {
             onClick = {println("other message")}
 
         ) {
-            Text(text = "Alerta", color = Color.Yellow, fontSize = 50.sp)
+            Text(text = "Alerta", color = Color.Black, fontSize = 50.sp)
         }
     }
 }

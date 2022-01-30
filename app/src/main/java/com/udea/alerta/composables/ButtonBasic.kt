@@ -16,7 +16,7 @@ import com.udea.alerta.ui.theme.Typography
 
 @Composable
 fun ButtonBasic(text: String, modifier: Modifier, onClick: ()-> Unit) {
-    TextButton(
+    Button(
         contentPadding= PaddingValues(horizontal = 1.dp),
         modifier = modifier
             .padding(horizontal = 1.dp)

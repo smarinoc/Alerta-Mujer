@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.udea.alerta.composables.ButtonBasic
 import com.udea.alerta.ui.theme.ColorFont
 import com.udea.alerta.ui.theme.ColorSegunario
@@ -18,7 +19,7 @@ import com.udea.alerta.ui.theme.ColorTitulo
 import com.udea.alerta.ui.theme.Typography
 
 @Composable
-fun ScreenGuardianes(){
+fun ScreenGuardianes(navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
@@ -41,7 +42,7 @@ fun ScreenGuardianes(){
         
         item{
             ButtonBasic(text = "Agregar", modifier = Modifier.fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp)), onClick = {})
+                .clip(RoundedCornerShape(10.dp)), onClick = {navController.navigate("GUARDIAN")})
         }
     }
 }

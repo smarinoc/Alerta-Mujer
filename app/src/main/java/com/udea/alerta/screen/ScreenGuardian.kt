@@ -20,7 +20,7 @@ import com.udea.alerta.ui.theme.Typography
 
 
 @Composable
-fun ScreenGuardian() {
+fun ScreenGuardian(nombre: String ="", numero: String ="" ) {
     Column(
         modifier = Modifier
             .fillMaxSize()

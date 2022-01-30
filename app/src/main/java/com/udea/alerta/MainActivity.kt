@@ -21,10 +21,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.udea.alerta.layout.LayoutMain
-import com.udea.alerta.screen.ScreenGuardianes
+import com.udea.alerta.layout.Screen
+import com.udea.alerta.screen.*
 import com.udea.alerta.ui.theme.AlertaTheme
 import com.udea.alerta.ui.theme.*
+
 
 
 class MainActivity : ComponentActivity() {
