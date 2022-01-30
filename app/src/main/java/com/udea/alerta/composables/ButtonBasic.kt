@@ -15,7 +15,7 @@ import com.udea.alerta.ui.theme.ColorPrimario
 import com.udea.alerta.ui.theme.Typography
 
 @Composable
-fun ButtonBasic(text: String, modifier: Modifier, onClick: ()-> Unit) {
+fun ButtonBasic(text: String, modifier: Modifier= Modifier, onClick: ()-> Unit) {
     Button(
         contentPadding= PaddingValues(horizontal = 1.dp),
         modifier = modifier

@@ -20,13 +20,13 @@ import com.udea.alerta.ui.theme.Typography
 
 
 @Composable
-fun ScreenGuardian(nombre: String ="", numero: String ="" ) {
+fun ScreenGuardian(nombre: String = "", numero: String = "", nuevo: Boolean = true) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 10.dp, vertical = 20.dp),
+            .padding(horizontal = 5.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
 
 
         ) {
@@ -40,8 +40,7 @@ fun ScreenGuardian(nombre: String ="", numero: String ="" ) {
         Spacer(modifier = Modifier.height(30.dp))
         TextField(modifier = Modifier
             .background(Color.White)
-            .fillMaxWidth()
-            , value = "", onValueChange = {}, label = {
+            .fillMaxWidth(), value = nombre, onValueChange = {}, label = {
             Text(text = "Nombre", color = ColorPrimario)
         },
             colors = TextFieldDefaults.textFieldColors(
@@ -51,8 +50,7 @@ fun ScreenGuardian(nombre: String ="", numero: String ="" ) {
         )
         TextField(modifier = Modifier
             .background(Color.White)
-            .fillMaxWidth()
-            , value = "", onValueChange = {}, label = {
+            .fillMaxWidth(), value = numero, onValueChange = {}, label = {
             Text(text = "Numero", color = ColorPrimario)
         },
             colors = TextFieldDefaults.textFieldColors(
@@ -60,27 +58,38 @@ fun ScreenGuardian(nombre: String ="", numero: String ="" ) {
                 focusedLabelColor = ColorPrimario
             )
         )
-        
-        Box(modifier = Modifier.fillMaxWidth()
-            ,contentAlignment = Alignment.Center){
-            Row(modifier = Modifier
-                .padding(top = 50.dp)
-                .fillMaxWidth()
-                .height(40.dp),
+
+        Box(
+            modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(top = 50.dp)
+                    .fillMaxWidth()
+                    .height(40.dp),
                 horizontalArrangement = Arrangement.Center,
-            ){
+            ) {
                 ButtonBasic(text = "Guardar", modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .width(150.dp), onClick = {})
                 Spacer(modifier = Modifier.width(50.dp))
-                ButtonBasic(text = "Eliminar", modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .width(150.dp), onClick = {})
+                if (nuevo) {
+                    ButtonBasic(text = "Cancelar", modifier = Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .width(150.dp), onClick = {})
+                } else {
+                    ButtonBasic(text = "Eliminar", modifier = Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .width(150.dp), onClick = {})
+                }
+
+
             }
-        }}
-
-
+        }
     }
+
+
+}
 
 
 

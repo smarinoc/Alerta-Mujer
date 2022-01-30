@@ -28,13 +28,13 @@ fun ScreenEncuesta() {
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
     ) {
         item {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp),
+                    .fillMaxWidth(),
                 text = "TEST",
                 fontWeight = Typography.h1.fontWeight,
                 color = ColorTitulo,
@@ -55,7 +55,8 @@ fun ScreenEncuesta() {
             ButtonBasic(
                 text = "TERMINAR", modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
-                    .width(150.dp),
+                    .width(200.dp)
+                    .padding(bottom = 60.dp),
                 onClick = {}
             )
         }

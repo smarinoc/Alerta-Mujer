@@ -24,13 +24,13 @@ fun ScreenAyuda() {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(15.dp)
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
     ) {
         item {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp),
+                    .fillMaxWidth(),
                 text = "AYUDA",
                 fontWeight = Typography.h1.fontWeight,
                 color = ColorTitulo,

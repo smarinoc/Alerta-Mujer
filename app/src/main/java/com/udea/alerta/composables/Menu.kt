@@ -19,8 +19,8 @@ fun Menu(navController: NavHostController) {
         modifier = Modifier
 
             .fillMaxWidth()
-            .requiredHeight(height = 55.dp)
-            .padding(all = 2.dp)
+            .requiredHeight(height = 70.dp)
+            .padding(horizontal = 2.dp, vertical = 10.dp)
     ) {
         ButtonBasic(text = primerBtn, modifier = Modifier.weight(1f),
             onClick = {

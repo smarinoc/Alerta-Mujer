@@ -2,6 +2,7 @@ package com.udea.alerta.screen
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,37 +25,45 @@ fun ScreenGuardianes(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(top = 10.dp, start = 5.dp, end=5.dp)
-    ){
-        item {Text(
-            modifier= Modifier.fillMaxWidth(),
-            text = "GUARDIANES",
-            fontWeight = Typography.h1.fontWeight,
-            color = ColorTitulo,
-            fontSize = Typography.h1.fontSize,
-            textAlign = TextAlign.Center
-        )  
-        Spacer(modifier = Modifier.height(20.dp))}
-
-        items(5){
-            ItemGuardian("Sara Maria", "3126684942")
+        contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
+    ) {
+        item {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = "GUARDIANES",
+                fontWeight = Typography.h1.fontWeight,
+                color = ColorTitulo,
+                fontSize = Typography.h1.fontSize,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(20.dp))
         }
-        
-        item{
-            ButtonBasic(text = "Agregar", modifier = Modifier.fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp)), onClick = {navController.navigate("GUARDIAN")})
+
+        items(5) {
+            ItemGuardian("Sara Maria", "3126684942", navController)
+        }
+
+        item {
+            ButtonBasic(text = "Agregar",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(10.dp)),
+                onClick = { navController.navigate("GUARDIAN/ & &${true}") })
         }
     }
 }
 
 @Composable
-fun ItemGuardian(nombre: String, numero: String) {
+fun ItemGuardian(nombre: String, numero: String,navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
-            .background(ColorSegunario),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .background(ColorSegunario)
+            .clickable { navController.navigate("GUARDIAN/${nombre}&${numero}&${false}") },
+        horizontalArrangement = Arrangement.SpaceBetween,
+
 
     ) {
         Text(
