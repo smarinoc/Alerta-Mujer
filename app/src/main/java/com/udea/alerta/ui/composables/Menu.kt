@@ -1,4 +1,4 @@
-package com.udea.alerta.composables
+package com.udea.alerta.ui.composables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*

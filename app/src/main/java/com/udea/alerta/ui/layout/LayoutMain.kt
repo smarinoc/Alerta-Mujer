@@ -1,4 +1,4 @@
-package com.udea.alerta.layout
+package com.udea.alerta.ui.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,8 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.udea.alerta.composables.Menu
-import com.udea.alerta.screen.*
+import com.udea.alerta.ui.composables.Menu
+import com.udea.alerta.ui.screen.*
 import com.udea.alerta.ui.theme.ColorBackground
 
 sealed class Screen(val ruta: String) {

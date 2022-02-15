@@ -1,4 +1,4 @@
-package com.udea.alerta.screen
+package com.udea.alerta.ui.screen
 
 
 import androidx.compose.foundation.background
@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.udea.alerta.composables.ButtonBasic
+import com.udea.alerta.ui.composables.ButtonBasic
 import com.udea.alerta.ui.theme.ColorFont
 import com.udea.alerta.ui.theme.ColorSegunario
 import com.udea.alerta.ui.theme.ColorTitulo

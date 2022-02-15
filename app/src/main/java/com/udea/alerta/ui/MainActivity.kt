@@ -1,4 +1,4 @@
-package com.udea.alerta
+package com.udea.alerta.ui
 
 
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.udea.alerta.layout.LayoutMain
+import com.udea.alerta.ui.layout.LayoutMain
 import com.udea.alerta.ui.theme.AlertaTheme
 
 

@@ -1,4 +1,4 @@
-package com.udea.alerta.screen
+package com.udea.alerta.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
