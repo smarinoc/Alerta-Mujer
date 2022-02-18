@@ -1,5 +1,6 @@
 package com.udea.alerta.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.udea.alerta.data.entities.GuardianEntity
 
@@ -7,17 +8,17 @@ import com.udea.alerta.data.entities.GuardianEntity
 interface GuardianDao {
 
     @Query("SELECT * FROM guardian_table")
-    suspend fun getAllGuardianes():List<GuardianEntity>
+    fun getAllGuardianes(): LiveData<List<GuardianEntity>>
 
     @Query("SELECT * FROM guardian_table WHERE id = :id")
-    suspend fun getById(id: Int): GuardianEntity
+    fun getById(id: Int): GuardianEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(guardianes:List<GuardianEntity>)
+    fun insert(guardian: GuardianEntity)
 
     @Update
-    suspend fun update(guardian: GuardianEntity)
+    fun update(guardian: GuardianEntity)
 
     @Delete
-    suspend fun delete(guardian: GuardianEntity)
+    fun delete(guardian: GuardianEntity)
 }
