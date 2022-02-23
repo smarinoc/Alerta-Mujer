@@ -62,6 +62,8 @@ fun LayoutMain() {
                     route = "${Screen.GUARDIAN.ruta}/{id}&{nombre}&{numero}&{nuevo}",
                     arguments = listOf(navArgument("nuevo") {
                         type = NavType.BoolType
+                    }, navArgument("id"){
+                        type = NavType.IntType
                     })
                 )
                 { backStackEntry ->
@@ -71,14 +73,14 @@ fun LayoutMain() {
                     val nuevo = backStackEntry.arguments?.getBoolean("nuevo")
                     ScreenGuardian(
                         id = id!!,
-                        nombre = nombre!!,
-                        numero = numero!!,
+                        nombreP = nombre!!,
+                        numeroP = numero!!,
                         nuevo = nuevo!!,
                         navController
                     )
                 }
                 composable(Screen.AYUDA.ruta) { ScreenAyuda() }
-                composable(Screen.ENCUESTA.ruta) { ScreenEncuesta() }
+                composable(Screen.ENCUESTA.ruta) { ScreenTest() }
 
             }
 

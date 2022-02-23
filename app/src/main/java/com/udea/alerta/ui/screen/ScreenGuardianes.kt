@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.udea.alerta.data.entities.GuardianEntity
 import com.udea.alerta.ui.composables.ButtonBasic
+import com.udea.alerta.ui.layout.LayoutScreen
 import com.udea.alerta.ui.theme.*
 import com.udea.alerta.viewModel.GuardianViewModel
 
@@ -38,34 +39,30 @@ fun ScreenGuardianes(
 ) {
     val guardianes by viewModel.guardianes.observeAsState(arrayListOf())
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
-    ) {
-        item {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                text = "GUARDIANES",
-                style = Typography.h1
-            )
-            Spacer(modifier = Modifier.height(20.dp))
+    LayoutScreen(title = "GUARDIANES") {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
+        ) {
+
+            items(guardianes) { guardian ->
+                ListItemGuardian(guardian, navController);
+            }
+
+            item {
+                ButtonBasic(text = "Agregar",
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .fillMaxWidth(),
+                    onClick = { navController.navigate("GUARDIAN/${-1}& & &${true}") })
+            }
         }
 
-        items(guardianes) { guardian ->
-            ListItemGuardian(guardian, navController);
-        }
-
-        item {
-            ButtonBasic(text = "Agregar",
-                modifier = Modifier
-                    .padding(top = 10.dp)
-                    .fillMaxWidth(),
-                onClick = { navController.navigate("GUARDIAN/ & & &${true}") })
-        }
     }
+
+
 }
 
 
@@ -76,6 +73,7 @@ fun ListItemGuardian(
     viewModel: GuardianViewModel = hiltViewModel()
 
 ) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth(),

@@ -32,7 +32,7 @@ class GuardianViewModel @Inject constructor(
         }
     }
 
-    fun updateGuardian( guardian: GuardianEntity) {
+    fun updateGuardian(guardian: GuardianEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             guardianRepositorioRoom.update(guardian)
         }
