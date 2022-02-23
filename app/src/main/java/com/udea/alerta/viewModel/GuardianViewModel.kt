@@ -26,4 +26,16 @@ class GuardianViewModel @Inject constructor(
             }
     }
 
+    fun deleteGuardian( guardian: GuardianEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            guardianRepositorioRoom.delete(guardian)
+        }
+    }
+
+    fun updateGuardian( guardian: GuardianEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            guardianRepositorioRoom.update(guardian)
+        }
+    }
+
 }

@@ -19,9 +19,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             AlertaTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    LayoutMain()
-                }
+                LayoutMain()
+
             }
         }
     }

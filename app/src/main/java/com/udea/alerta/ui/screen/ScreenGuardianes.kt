@@ -5,22 +5,39 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.udea.alerta.data.entities.GuardianEntity
 import com.udea.alerta.ui.composables.ButtonBasic
-import com.udea.alerta.ui.theme.ColorFont
-import com.udea.alerta.ui.theme.ColorSegunario
-import com.udea.alerta.ui.theme.ColorTitulo
-import com.udea.alerta.ui.theme.Typography
+import com.udea.alerta.ui.theme.*
+import com.udea.alerta.viewModel.GuardianViewModel
+
 
 @Composable
-fun ScreenGuardianes(navController: NavHostController) {
+fun ScreenGuardianes(
+    navController: NavHostController,
+    viewModel: GuardianViewModel = hiltViewModel()
+) {
+    val guardianes by viewModel.guardianes.observeAsState(arrayListOf())
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
@@ -32,53 +49,61 @@ fun ScreenGuardianes(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = "GUARDIANES",
-                fontWeight = Typography.h1.fontWeight,
-                color = ColorTitulo,
-                fontSize = Typography.h1.fontSize,
-                textAlign = TextAlign.Center
+                style = Typography.h1
             )
             Spacer(modifier = Modifier.height(20.dp))
         }
 
-        items(5) {
-            ItemGuardian("Sara Maria", "3126684942", navController)
+        items(guardianes) { guardian ->
+            ListItemGuardian(guardian, navController);
         }
 
         item {
             ButtonBasic(text = "Agregar",
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(10.dp)),
-                onClick = { navController.navigate("GUARDIAN/ & &${true}") })
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(),
+                onClick = { navController.navigate("GUARDIAN/ & & &${true}") })
         }
     }
 }
 
-@Composable
-fun ItemGuardian(nombre: String, numero: String,navController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(ColorSegunario)
-            .clickable { navController.navigate("GUARDIAN/${nombre}&${numero}&${false}") },
-        horizontalArrangement = Arrangement.SpaceBetween,
 
+@Composable
+fun ListItemGuardian(
+    guardian: GuardianEntity,
+    navController: NavHostController,
+    viewModel: GuardianViewModel = hiltViewModel()
+
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+        backgroundColor = ColorSegunario,
+        shape = Shapes.large
 
     ) {
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-            text = nombre,
-            fontWeight = Typography.body1.fontWeight,
-            color = ColorFont,
-            fontSize = Typography.body1.fontSize
-        )
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-            text = numero,
-            fontWeight = Typography.body1.fontWeight,
-            color = ColorFont,
-            fontSize = Typography.body1.fontSize
-        )
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)) {
+                Text(text = guardian.nombre, style = Typography.h3)
+                Text(text = guardian.numero, style = Typography.subtitle1)
+
+            }
+
+            Row() {
+                IconButton(onClick = { navController.navigate("GUARDIAN/${guardian.id}&${guardian.nombre}&${guardian.numero}&${false}") }) {
+                    Icon(Icons.Outlined.Edit, contentDescription = null, tint = Color.White)
+                }
+                IconButton(onClick = { viewModel.deleteGuardian(guardian) }) {
+                    Icon(Icons.Outlined.Delete, contentDescription = null, tint = Color.White)
+                }
+
+            }
+        }
     }
+
 }

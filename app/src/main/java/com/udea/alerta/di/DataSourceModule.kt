@@ -3,6 +3,7 @@ package com.udea.alerta.di
 import android.content.Context
 import androidx.room.Room
 import com.udea.alerta.data.DataBase
+import com.udea.alerta.data.dao.AyudaDao
 import com.udea.alerta.data.dao.GuardianDao
 import dagger.Module
 import dagger.Provides
@@ -27,5 +28,9 @@ class DataSourceModule {
     @Singleton
     @Provides
     fun guardianDao(db: DataBase): GuardianDao = db.getGuardianDao()
+
+    @Singleton
+    @Provides
+    fun ayudaDao(db: DataBase): AyudaDao = db.getAyudaDao()
 
 }
