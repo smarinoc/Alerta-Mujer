@@ -22,6 +22,6 @@ fun LayoutScreen(title: String, content: @Composable ColumnScope.() -> Unit) {
             text = title,
             style = Typography.h1
         )
-        Column(content = content)
+        Column(content = content, modifier = Modifier.padding(top = 10.dp))
     }
 }

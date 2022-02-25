@@ -44,7 +44,7 @@ fun ScreenGuardianes(
             modifier = Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(2.dp),
-            contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
+            contentPadding = PaddingValues(horizontal = 5.dp)
         ) {
 
             items(guardianes) { guardian ->

@@ -1,5 +1,9 @@
 package com.udea.alerta.ui.screen
 
+
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,62 +17,46 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 import com.udea.alerta.data.entities.AyudaEntity
 import com.udea.alerta.ui.composables.ButtonBasic
 import com.udea.alerta.ui.layout.LayoutScreen
 import com.udea.alerta.ui.theme.*
-import com.udea.alerta.ui.theme.ColorTitulo
 import com.udea.alerta.viewModel.AyudaViewModel
+import com.google.accompanist.permissions.rememberPermissionState
 
+
+@ExperimentalPermissionsApi
 @Composable
 fun ScreenAyuda(viewModel: AyudaViewModel = hiltViewModel()) {
     val ayudas by viewModel.ayudas.observeAsState(arrayListOf())
-    viewModel.addAyuda(
-        AyudaEntity(
-            titulo = "Línea 155, Una llamada puede marcar la diferencia",
-            descripcion = "Con atención las 24 horas del día, todos los días de la semana, los colombianos podrán comunicarse bajo reserva y gratuitamente a esta línea, desde cualquier operador en todo el territorio nacional para recibir orientación en temas relacionados con violencia de género" +
-                    "Personal especializado se encuentra dispuesto para brindar información clara y completa sobre los derechos de las mujeres," +
-                    "así como para orientar sobre la forma de hacer una denuncia," +
-                    "tipos de violencias de los cuales puede ser víctima una mujer," +
-                    "así como procedimientos para obtener atención jurídica y en materia de salud." +
-                    "   Del mismo modo," +
-                    "quienes se comuniquen podrán conocer la oferta institucional dispuesta por el Gobierno Nacional y los mecanismos en marcha para prevenir," +
-                    "minimizar y eliminar las violencias contra las mujeres .", telefono = "155"
-        )
-    )
+    val permissionState = rememberPermissionState(android.Manifest.permission.CALL_PHONE)
+    val context = LocalContext.current
 
-    viewModel.addAyuda(
-        AyudaEntity(
-            titulo = "Línea 123 Mujer",
-            descripcion = "La línea 123 Mujer Metropolitana es un mecanismo de atención de emergencias24/7 para mujeres en riesgo o víctimas de violencias con cobertura en nueve municipios del área metropolitana del Valle de Aburrá:\n" +
-                    "Barbosa Copacabana Girardota Bello Envigado Caldas Itagüí Sabaneta La Estrella",
-            telefono = "123"
-        )
-    )
 
     LayoutScreen(title = "AYUDA") {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(15.dp),
-            contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp)
+            contentPadding = PaddingValues(horizontal = 5.dp)
         ) {
 
             items(ayudas) { ayudaItem ->
-                CardAyuda(ayudaItem);
+                CardAyuda(ayudaItem, permissionState, context);
             }
         }
 
     }
 }
 
-
+@ExperimentalPermissionsApi
 @Composable
-fun CardAyuda(ayuda: AyudaEntity) {
+fun CardAyuda(ayuda: AyudaEntity, permissionState: PermissionState, context: Context) {
     Card() {
         Column(
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
@@ -91,7 +79,7 @@ fun CardAyuda(ayuda: AyudaEntity) {
                     text = ayuda.telefono,
                     style = Typography.h4,
 
-                )
+                    )
                 Icon(
                     imageVector = Icons.Outlined.SupportAgent,
                     contentDescription = null,
@@ -104,9 +92,27 @@ fun CardAyuda(ayuda: AyudaEntity) {
             ButtonBasic(
                 text = "LLAMAR", modifier = Modifier
                     .padding(horizontal = 5.dp)
-                    .fillMaxWidth(), onClick = {}
+                    .fillMaxWidth(), onClick = {
+
+                    if (permissionState.hasPermission) {
+                        context.startActivity(
+                            Intent(
+                                Intent(
+                                    Intent.ACTION_CALL,
+                                    Uri.parse("tel:3107366637")
+                                )
+                            ))
+
+                    } else {
+                        permissionState.launchPermissionRequest()
+                    }
+
+
+                }
             )
         }
+
+
     }
 }
 

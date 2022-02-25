@@ -20,6 +20,7 @@ class DataSourceModule {
     @Provides
     fun dbDataSource(@ApplicationContext context: Context): DataBase {
         return Room.databaseBuilder(context, DataBase::class.java, "alerta_database")
+            .createFromAsset("database/alerta_database")
             .fallbackToDestructiveMigration()
             .build()
     }
