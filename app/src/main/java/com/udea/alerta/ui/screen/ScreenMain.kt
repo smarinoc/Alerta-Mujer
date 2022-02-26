@@ -1,8 +1,9 @@
-package com.udea.alerta.screen
+package com.udea.alerta.ui.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,18 +23,22 @@ fun ScreenMain() {
         Text(
             text = "Presionar 2 veces",
             fontSize = 20.sp,
-            modifier = Modifier.padding(vertical = 5.dp)
+            modifier = Modifier.padding(vertical = 10.dp)
         )
-        Box(
-            modifier = Modifier
 
-                .size(200.dp)
-                .clip(CircleShape)
-                .background(Color.Red),
-            contentAlignment = Alignment.Center
+        Button(
+            modifier = Modifier
+                .size(300.dp)
+                .clip(CircleShape),
+            onClick = { println("other message")},
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
 
         ) {
             Text(text = "Alerta", color = Color.Yellow, fontSize = 50.sp)
+
+
         }
+
+
     }
 }
