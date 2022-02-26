@@ -1,9 +1,6 @@
 package com.udea.alerta.di
 
-import com.udea.alerta.repository.AyudaRepositorio
-import com.udea.alerta.repository.AyudaRepositorioRoom
-import com.udea.alerta.repository.GuardianRepositorio
-import com.udea.alerta.repository.GuardianRepositorioRoom
+import com.udea.alerta.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +18,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun AyudaRepositorioRoom(repo: AyudaRepositorioRoom): AyudaRepositorio
+
+    @Binds
+    @Singleton
+    abstract fun PreguntaRepositorioRoom(repo: PreguntaRepositorioRoom): PreguntaRepositorio
 }

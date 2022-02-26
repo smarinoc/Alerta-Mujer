@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.udea.alerta.data.DataBase
 import com.udea.alerta.data.dao.AyudaDao
 import com.udea.alerta.data.dao.GuardianDao
+import com.udea.alerta.data.dao.PreguntaDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +34,9 @@ class DataSourceModule {
     @Singleton
     @Provides
     fun ayudaDao(db: DataBase): AyudaDao = db.getAyudaDao()
+
+    @Singleton
+    @Provides
+    fun preguntaDao(db: DataBase): PreguntaDao = db.getPreguntaDao()
 
 }

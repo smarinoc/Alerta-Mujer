@@ -1,15 +1,11 @@
 package com.udea.alerta.ui
 
 
-import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-
 import com.udea.alerta.ui.layout.LayoutMain
 import com.udea.alerta.ui.theme.AlertaTheme
 import dagger.hilt.android.AndroidEntryPoint

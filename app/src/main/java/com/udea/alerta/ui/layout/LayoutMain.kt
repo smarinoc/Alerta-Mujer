@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.udea.alerta.ui.composables.Menu
 import com.udea.alerta.ui.composables.Tabs
 import com.udea.alerta.ui.screen.*
@@ -30,6 +31,7 @@ sealed class Screen(val ruta: String) {
 }
 
 
+@ExperimentalPermissionsApi
 @Composable
 fun LayoutMain() {
     val navController = rememberNavController()

@@ -3,7 +3,6 @@ package com.udea.alerta.data.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.udea.alerta.data.entities.AyudaEntity
-import com.udea.alerta.data.entities.GuardianEntity
 
 @Dao
 interface AyudaDao {
