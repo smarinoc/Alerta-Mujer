@@ -22,4 +22,24 @@
     <style name="Theme.Alerta.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Alerta.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Base application theme. -->
+    <style name="AppThemeCalculator" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CalculatorNumbers" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/gray</item>
+        <item name="colorControlHighlight">@color/graySelected</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CalculatorOperations" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/orange</item>
+        <item name="colorControlHighlight">@color/orangeSelected</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>
