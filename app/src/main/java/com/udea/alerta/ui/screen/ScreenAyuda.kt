@@ -43,7 +43,7 @@ fun ScreenAyuda(viewModel: AyudaViewModel = hiltViewModel()) {
             modifier = Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(15.dp),
-            contentPadding = PaddingValues(horizontal = 5.dp)
+            contentPadding = PaddingValues(bottom = 20.dp, start = 5.dp, end = 5.dp)
         ) {
 
             items(ayudas) { ayudaItem ->
@@ -99,9 +99,10 @@ fun CardAyuda(ayuda: AyudaEntity, permissionState: PermissionState, context: Con
                             Intent(
                                 Intent(
                                     Intent.ACTION_CALL,
-                                    Uri.parse("tel:3107366637")
+                                    Uri.parse("tel:${ayuda.telefono}")
                                 )
-                            ))
+                            )
+                        )
 
                     } else {
                         permissionState.launchPermissionRequest()
