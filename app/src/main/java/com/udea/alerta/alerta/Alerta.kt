@@ -16,6 +16,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.udea.alerta.R
 import com.udea.alerta.calculator.Calculator
+import com.udea.alerta.ui.MainActivity
 import java.lang.Exception
 
 class Alerta : AppCompatActivity() {
@@ -82,7 +83,10 @@ class Alerta : AppCompatActivity() {
         siete.setOnClickListener { numberPressed("7") }
         ocho.setOnClickListener { numberPressed("8") }
         nueve.setOnClickListener { numberPressed("9") }
-        cero.setOnClickListener { numberPressed("0") }
+        cero.setOnClickListener { numberPressed("0")
+            val intent: Intent = Intent(this, MainActivity()::class.java)
+            startActivity(intent)
+        }
         punto.setOnClickListener { numberPressed(".") }
 
         clear.setOnClickListener { resetAll() }
