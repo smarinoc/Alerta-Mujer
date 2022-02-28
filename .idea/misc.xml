@@ -3,10 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
-        <entry key="..\:/Users/tarea/OneDrive/Documentos/AlertaMujer/Alerta-mujer/app/src/main/res/layout/activity_auth.xml" value="0.17300724637681159" />
-        <entry key="..\:/Users/tarea/OneDrive/Documentos/AlertaMujer/Alerta-mujer/app/src/main/res/layout/calculator.xml" value="0.23596014492753623" />
-
         <entry key="../../../../layout/compose-model-1643308790229.xml" value="0.27870370370370373" />
         <entry key="../../../../layout/compose-model-1643309080690.xml" value="0.33" />
         <entry key="../../../../layout/compose-model-1643510288635.xml" value="0.29697986577181207" />
@@ -20,7 +16,7 @@
         <entry key="../../../../layout/compose-model-1645597701847.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1645896992915.xml" value="0.3112331081081081" />
         <entry key="../../../../layout/compose-model-1645897136498.xml" value="0.33" />
-
+        <entry key="app/src/main/res/layout/calculator.xml" value="0.2953125" />
       </map>
     </option>
   </component>

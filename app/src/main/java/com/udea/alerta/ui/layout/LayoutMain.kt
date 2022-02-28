@@ -28,6 +28,7 @@ sealed class Screen(val ruta: String) {
     object GUARDIAN : Screen("GUARDIAN")
     object AYUDA : Screen("AYUDA")
     object ENCUESTA : Screen("TEST")
+    object PERFILRIESGO : Screen("RIESGO")
 }
 
 
@@ -64,7 +65,7 @@ fun LayoutMain() {
                     route = "${Screen.GUARDIAN.ruta}/{id}&{nombre}&{numero}&{nuevo}",
                     arguments = listOf(navArgument("nuevo") {
                         type = NavType.BoolType
-                    }, navArgument("id"){
+                    }, navArgument("id") {
                         type = NavType.IntType
                     })
                 )
@@ -82,7 +83,16 @@ fun LayoutMain() {
                     )
                 }
                 composable(Screen.AYUDA.ruta) { ScreenAyuda() }
-                composable(Screen.ENCUESTA.ruta) { ScreenTest() }
+                composable(Screen.ENCUESTA.ruta) { ScreenTest(navController) }
+                composable(
+                    route = "${Screen.PERFILRIESGO.ruta}/{aux}",
+                    arguments = listOf(navArgument("aux") {
+                        type = NavType.IntType
+                    }))
+                    { backStackEntry ->
+                        val aux = backStackEntry.arguments?.getInt("aux")
+                        ScreenPerfilRiesgo(aux = aux!!)
+                    }
 
             }
 
