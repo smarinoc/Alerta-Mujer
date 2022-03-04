@@ -14,7 +14,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -25,11 +27,42 @@ import com.udea.alerta.viewModel.PreguntaViewModel
 
 var puntajes = Array(23) { 0 }
 
+@Composable
+fun ScreenTest(navController: NavController) {
+    var startTest = rememberSaveable { mutableStateOf(false) }
+
+    LayoutScreen(title = "TEST") {
+        if (startTest.value) {
+            QuestionList(navController = navController)
+        } else {
+            InfoTest(onClick = {startTest.value=true})
+        }
+    }
+}
+
+@Composable
+fun InfoTest(onClick: ()-> Unit) {
+    Card(modifier = Modifier.padding(horizontal = 5.dp)) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(horizontal = 5.dp, vertical = 10.dp)) {
+            Text(text = "Este test evaluara el nivel de riesgo presente de acuerdo a una serie de preguntas", style = typography.body1.copy(textAlign = TextAlign.Center ))
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(text = "Este test solo es valido para mujeres mayores de edad", style = typography.body1.copy(textAlign = TextAlign.Center))
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(text = "Derechos reservados", style = typography.subtitle1.copy(color = Color.Black))
+            Spacer(modifier = Modifier.height(10.dp))
+            ButtonBasic(text = "Empezar test", onClick = onClick, modifier = Modifier.fillMaxWidth())
+        }
+    }
+
+}
+
+
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun ScreenTest(navController: NavController, viewModel: PreguntaViewModel = hiltViewModel()) {
+fun QuestionList(navController: NavController, viewModel: PreguntaViewModel = hiltViewModel()) {
+
     val preguntas by viewModel.preguntas.observeAsState(arrayListOf())
-    var aux = rememberSaveable { mutableStateOf(false) }
+    var changeListQuestion = rememberSaveable { mutableStateOf(false) }
 
     fun calcularRiesgo() {
         var suma = 0
@@ -55,47 +88,53 @@ fun ScreenTest(navController: NavController, viewModel: PreguntaViewModel = hilt
         }
     }
 
-    LayoutScreen(title = "TEST") {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 20.dp, start = 5.dp, end = 5.dp)
-        ) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentPadding = PaddingValues(bottom = 20.dp, start = 5.dp, end = 5.dp)
+    ) {
 
-            items(preguntas) { preguntaItem ->
-                if (preguntaItem.depende == -1) {
-                    CardPregunta(preguntaItem, aux)
-                } else {
-                    if (puntajes[preguntaItem.id - 2] != 0) {
-                        CardPregunta(preguntaItem, aux)
-                    }
-                }
 
-            }
-            item {
-
-                ButtonBasic(
-                    text = "Terminar",
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .fillMaxWidth(),
-                    onClick = {
-                        calcularRiesgo()
-
-                    }
+        items(preguntas) { preguntaItem ->
+            changeListQuestion.value
+            if (preguntaItem.depende == -1) {
+                CardPregunta(
+                    preguntaItem,
+                    changeListQuestion = changeListQuestion
                 )
+            } else {
+                if (puntajes[preguntaItem.id - 2] != 0) {
+                    CardPregunta(
+                        preguntaItem,
+                        changeListQuestion = changeListQuestion
+                    )
+                }
             }
-
 
         }
+        item {
 
+            ButtonBasic(
+                text = "Terminar",
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(),
+                onClick = {
+                    calcularRiesgo()
+
+                }
+            )
+        }
     }
-
 
 }
 
+
 @Composable
-fun CardPregunta(pregunta: PreguntaEntity, aux: MutableState<Boolean>) {
+fun CardPregunta(
+    pregunta: PreguntaEntity,
+    changeListQuestion: MutableState<Boolean>,
+) {
 
     Card(modifier = Modifier.padding(top = 5.dp)) {
         val radioOptions = listOf("Sí", "No")
@@ -127,10 +166,11 @@ fun CardPregunta(pregunta: PreguntaEntity, aux: MutableState<Boolean>) {
                                     onOptionSelected(text)
                                     if (text == "Sí") {
                                         puntajes[pregunta.id - 1] = pregunta.puntaje
+
                                     } else {
                                         puntajes[pregunta.id - 1] = 0
                                     }
-                                    aux.value = !(aux.value)
+                                    changeListQuestion.value = changeListQuestion.value.not()
                                 },
                                 role = Role.RadioButton
                             )

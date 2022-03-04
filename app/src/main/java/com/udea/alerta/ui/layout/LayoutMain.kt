@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -17,20 +17,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.udea.alerta.ui.composables.Menu
 import com.udea.alerta.ui.composables.Tabs
 import com.udea.alerta.ui.screen.*
 import com.udea.alerta.ui.theme.ColorBackground
 
 sealed class Screen(val ruta: String) {
-    object MAIN : Screen("ALERTA")
     object GUARDIANES : Screen("GUARDIANES")
     object GUARDIAN : Screen("GUARDIAN")
     object AYUDA : Screen("AYUDA")
     object ENCUESTA : Screen("TEST")
     object PERFILRIESGO : Screen("RIESGO")
 }
-
 
 @ExperimentalPermissionsApi
 @Composable
@@ -44,11 +41,15 @@ fun LayoutMain() {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = null)
                     }
-                })
+                }, actions = {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(Icons.Filled.Info, contentDescription = null)
+                    }
+                }
+            )
 
         }
     ) { padding ->
-
 
         Column(
             verticalArrangement = Arrangement.Top,
@@ -59,7 +60,6 @@ fun LayoutMain() {
         ) {
             Tabs(navController = navController)
             NavHost(navController = navController, startDestination = Screen.GUARDIANES.ruta) {
-                composable(Screen.MAIN.ruta) { ScreenMain() }
                 composable(Screen.GUARDIANES.ruta) { ScreenGuardianes(navController) }
                 composable(
                     route = "${Screen.GUARDIAN.ruta}/{id}&{nombre}&{numero}&{nuevo}",
@@ -88,11 +88,12 @@ fun LayoutMain() {
                     route = "${Screen.PERFILRIESGO.ruta}/{aux}",
                     arguments = listOf(navArgument("aux") {
                         type = NavType.IntType
-                    }))
-                    { backStackEntry ->
-                        val aux = backStackEntry.arguments?.getInt("aux")
-                        ScreenPerfilRiesgo(aux = aux!!)
-                    }
+                    })
+                )
+                { backStackEntry ->
+                    val aux = backStackEntry.arguments?.getInt("aux")
+                    ScreenPerfilRiesgo(aux = aux!!)
+                }
 
             }
 
