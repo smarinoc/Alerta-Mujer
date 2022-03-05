@@ -1,11 +1,12 @@
 package com.udea.alerta.calculator
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.udea.alerta.R
-
+import com.udea.alerta.ui.MainActivity
 
 
 class Calculator : AppCompatActivity() {
@@ -23,23 +24,23 @@ class Calculator : AppCompatActivity() {
         resultado.text = "0"
         operacion = SIN_OPERACION
 
-        var uno : Button ?= null
-        var dos : Button ?= null
-        var tres : Button ?= null
-        var cuatro : Button ?= null
-        var cinco : Button ?= null
-        var seis : Button ?= null
-        var siete : Button ?= null
-        var ocho : Button ?= null
-        var nueve : Button ?= null
-        var suma : Button ?= null
-        var resta : Button ?= null
-        var multiplicar : Button ?= null
-        var dividir : Button ?= null
-        var cero : Button ?= null
-        var punto : Button ?= null
-        var clear : Button ?= null
-        var igual : Button ?= null
+        var uno: Button? = null
+        var dos: Button? = null
+        var tres: Button? = null
+        var cuatro: Button? = null
+        var cinco: Button? = null
+        var seis: Button? = null
+        var siete: Button? = null
+        var ocho: Button? = null
+        var nueve: Button? = null
+        var suma: Button? = null
+        var resta: Button? = null
+        var multiplicar: Button? = null
+        var dividir: Button? = null
+        var cero: Button? = null
+        var punto: Button? = null
+        var clear: Button? = null
+        var igual: Button? = null
 
         uno = findViewById(R.id.unoBtn)
         dos = findViewById(R.id.dosBtn)
@@ -68,8 +69,16 @@ class Calculator : AppCompatActivity() {
         siete.setOnClickListener { numberPressed("7") }
         ocho.setOnClickListener { numberPressed("8") }
         nueve.setOnClickListener { numberPressed("9") }
-        cero.setOnClickListener { numberPressed("0") }
-        punto.setOnClickListener { numberPressed(".") }
+        cero.setOnClickListener {
+            val resultado = findViewById<TextView>(R.id.resultadoText)
+            resultado.text="malo"
+            val intent: Intent = Intent(this, MainActivity()::class.java)
+            startActivity(intent)
+        }
+        punto.setOnClickListener {
+            numberPressed(".")
+
+        }
 
         clear.setOnClickListener { resetAll() }
 
@@ -81,23 +90,23 @@ class Calculator : AppCompatActivity() {
         igual.setOnClickListener { resolvePressed() }
     }
 
-    private fun numberPressed(num: String){
+    private fun numberPressed(num: String) {
         val resultado = findViewById<TextView>(R.id.resultadoText)
 
-        if(resultado.text == "0" && num != ".") {
+        if (resultado.text == "0" && num != ".") {
             resultado.text = "$num"
         } else {
             resultado.text = "${resultado.text}$num"
         }
 
-        if(operacion == SIN_OPERACION){
+        if (operacion == SIN_OPERACION) {
             num1 = resultado.text.toString().toDouble()
         } else {
             num2 = resultado.text.toString().toDouble()
         }
     }
 
-    private fun operationPressed(operacion: Int){
+    private fun operationPressed(operacion: Int) {
         val resultado = findViewById<TextView>(R.id.resultadoText)
 
         this.operacion = operacion
@@ -106,10 +115,10 @@ class Calculator : AppCompatActivity() {
         resultado.text = "0"
     }
 
-    private fun resolvePressed(){
+    private fun resolvePressed() {
         val resultado = findViewById<TextView>(R.id.resultadoText)
 
-        val result = when(operacion) {
+        val result = when (operacion) {
             SUMA -> num1 + num2
             RESTA -> num1 - num2
             MULTIPLICACION -> num1 * num2
@@ -119,10 +128,14 @@ class Calculator : AppCompatActivity() {
 
         num1 = result as Double
 
-        resultado.text = if("$result".endsWith(".0")) { "$result".replace(".0","") } else { "%.2f".format(result) }
+        resultado.text = if ("$result".endsWith(".0")) {
+            "$result".replace(".0", "")
+        } else {
+            "%.2f".format(result)
+        }
     }
 
-    private fun resetAll(){
+    private fun resetAll() {
         val resultado = findViewById<TextView>(R.id.resultadoText)
 
         resultado.text = "0"

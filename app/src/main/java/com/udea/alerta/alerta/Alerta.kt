@@ -14,11 +14,9 @@ import android.telephony.SmsManager
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.compose.runtime.Composable
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.udea.alerta.R
 import com.udea.alerta.calculator.Calculator
-import com.udea.alerta.ui.layout.LayoutMain
+import com.udea.alerta.ui.MainActivity
 import java.lang.Exception
 
 class Alerta : AppCompatActivity() {
@@ -27,8 +25,6 @@ class Alerta : AppCompatActivity() {
     private var num2 = 0.0
     private var operacion = 0
 
-
-    @ExperimentalPermissionsApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.calculator)
@@ -36,7 +32,6 @@ class Alerta : AppCompatActivity() {
         var etMsj: String? = null
         var etCel: String? = null
         var btnEnviar: Button? = null
-        var btnCambiar: Button? = null
         var count = 0
         val resultado = findViewById<TextView>(R.id.resultadoText)
 
@@ -88,7 +83,10 @@ class Alerta : AppCompatActivity() {
         siete.setOnClickListener { numberPressed("7") }
         ocho.setOnClickListener { numberPressed("8") }
         nueve.setOnClickListener { numberPressed("9") }
-        cero.setOnClickListener { numberPressed("0") }
+        cero.setOnClickListener { numberPressed("0")
+            val intent: Intent = Intent(this, MainActivity()::class.java)
+            startActivity(intent)
+        }
         punto.setOnClickListener { numberPressed(".") }
 
         clear.setOnClickListener { resetAll() }
@@ -102,8 +100,7 @@ class Alerta : AppCompatActivity() {
 
         etMsj = "entonces que bien o no"
         etCel = "0573103629019"
-        btnEnviar = findViewById(R.id.multiplicarBtn)
-        btnCambiar = findViewById(R.id.clearBtn)
+        btnEnviar = findViewById(R.id.clearBtn)
         if (ActivityCompat.checkSelfPermission(
                 this@Alerta,
                 Manifest.permission.SEND_SMS
@@ -115,16 +112,6 @@ class Alerta : AppCompatActivity() {
                 1
             )
         }
-        /*
-      btnCambiar.setOnClickListener {
-            count++
-            if(count > 2){
-                call()
-                count = 0
-            }
-        }
-
-         */
         btnEnviar.setOnClickListener {
             count++
             if (count > 2 ) {
@@ -239,24 +226,16 @@ class Alerta : AppCompatActivity() {
     private fun resolvePressed(){
         val resultado = findViewById<TextView>(R.id.resultadoText)
 
-        var result = 0.0
-
-        if(operacion == 1){
-            result = num1 + num2
-        }else if (operacion == 2){
-            result = num1 - num2
-        }else if (operacion == 3){
-            result = num1 * num2
-        }else if (operacion == 4){
-            if (num2 == 0.0){
-                result = 0.0
-            }else {
-                result = num1 / num2
-            }
-        }else{
-            result = 0.0
+        val result = when(operacion) {
+            SUMA -> num1 + num2
+            RESTA -> num1 - num2
+            MULTIPLICACION -> num1 * num2
+            DIVISION -> num1 / num2
+            else -> 0
         }
+
         num1 = result as Double
+
         resultado.text = if("$result".endsWith(".0")) { "$result".replace(".0","") } else { "%.2f".format(result) }
     }
 
@@ -274,13 +253,5 @@ class Alerta : AppCompatActivity() {
         const val MULTIPLICACION = 3
         const val DIVISION = 4
         const val SIN_OPERACION = 0
-    }
-
-    @ExperimentalPermissionsApi
-    @Composable
-    private final fun call(): Unit {
-        val intent:Intent = Intent(this, LayoutMain()::class.java)
-        startActivity(intent)
-        LayoutMain()
     }
 }
