@@ -14,11 +14,18 @@ import android.telephony.SmsManager
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Observer
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.udea.alerta.R
 import com.udea.alerta.calculator.Calculator
 import com.udea.alerta.ui.MainActivity
+import com.udea.alerta.viewModel.GuardianViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
+@AndroidEntryPoint
 class Alerta : AppCompatActivity() {
 
     private var num1 = 0.0
@@ -30,10 +37,11 @@ class Alerta : AppCompatActivity() {
         setContentView(R.layout.calculator)
 
         var etMsj: String? = null
-        var etCel: String? = null
         var btnEnviar: Button? = null
         var count = 0
+        var count2 = 0
         val resultado = findViewById<TextView>(R.id.resultadoText)
+        val model: GuardianViewModel by viewModels()
 
         resultado.text = "0"
         operacion = Calculator.SIN_OPERACION
@@ -83,13 +91,16 @@ class Alerta : AppCompatActivity() {
         siete.setOnClickListener { numberPressed("7") }
         ocho.setOnClickListener { numberPressed("8") }
         nueve.setOnClickListener { numberPressed("9") }
-        cero.setOnClickListener { numberPressed("0")
-            val intent: Intent = Intent(this, MainActivity()::class.java)
-            startActivity(intent)
+        cero.setOnClickListener {
+            count2++
+            if(count2 > 2){
+                val intent: Intent = Intent(this, MainActivity()::class.java)
+                startActivity(intent)
+            }else{
+                numberPressed("0")
+            }
         }
         punto.setOnClickListener { numberPressed(".") }
-
-        clear.setOnClickListener { resetAll() }
 
         suma.setOnClickListener { operationPressed(Calculator.SUMA) }
         resta.setOnClickListener { operationPressed(Calculator.RESTA) }
@@ -98,8 +109,7 @@ class Alerta : AppCompatActivity() {
 
         igual.setOnClickListener { resolvePressed() }
 
-        etMsj = "entonces que bien o no"
-        etCel = "0573103629019"
+        etMsj = "Necesito de tú ayuda"
         btnEnviar = findViewById(R.id.clearBtn)
         if (ActivityCompat.checkSelfPermission(
                 this@Alerta,
@@ -114,66 +124,41 @@ class Alerta : AppCompatActivity() {
         }
         btnEnviar.setOnClickListener {
             count++
+            var codigo = "057"
             if (count > 2 ) {
-                if (etMsj == "") {
-                    Toast.makeText(
-                        this@Alerta,
-                        "Ingrese el Mensaje y el Numero de Celular...",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    try {
-                        val smsManager = SmsManager.getDefault()
-                        smsManager.sendTextMessage(
-                            etCel,
-                            null,
-                            etMsj,
-                            null,
-                            null
-                        )
-                        Toast.makeText(this@Alerta, "MSJ Enviado", Toast.LENGTH_LONG).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            this@Alerta,
-                            "Error SMS...\n Ingrese un Numero Valido",
-                            Toast.LENGTH_LONG
-                        ).show()
+                model.guardianes.observe(this, Observer { guardianes ->
+                    for(x in guardianes){
+                        if (etMsj == "") {
+                            Toast.makeText(
+                                this@Alerta,
+                                "Ingrese el Mensaje y el Numero de Celular...",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            try {
+                                val smsManager = SmsManager.getDefault()
+                                smsManager.sendTextMessage(
+                                    codigo+x.numero,
+                                    null,
+                                    etMsj,
+                                    null,
+                                    null
+                                )
+                                Toast.makeText(this@Alerta, "MSJ Enviado", Toast.LENGTH_LONG).show()
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                    this@Alerta,
+                                    "Error SMS...\n Ingrese un Numero Valido",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
-                }
+                })
 
-
-                if (etCel == "") {
-                    try {
-                        val sendIntent = Intent()
-                        sendIntent.action = Intent.ACTION_SEND
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, etMsj)
-                        sendIntent.type = "text/plain"
-                        sendIntent.setPackage("com.whatsapp")
-                        startActivity(sendIntent)
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            this@Alerta,
-                            "Error de Whatsapp.\nInstale la App",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                } else {
-                    try {
-                        val sendIntent = Intent()
-                        sendIntent.action = Intent.ACTION_VIEW
-                        val uri = "whatsapp://send?phone=" + etCel
-                            .toString() + "&text=" + etMsj
-                        sendIntent.data = Uri.parse(uri)
-                        startActivity(sendIntent)
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            this@Alerta,
-                            "Error de Whatsapp.\nInstale la App",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
                 count = 0 // reset count
+            }else{
+                resetAll()
             }
         }
     }
