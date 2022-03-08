@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.udea.alerta.ui.composables.Tabs
 import com.udea.alerta.ui.screen.*
@@ -27,8 +28,10 @@ sealed class Screen(val ruta: String) {
     object AYUDA : Screen("AYUDA")
     object ENCUESTA : Screen("TEST")
     object PERFILRIESGO : Screen("RIESGO")
+    object ONBOARDING: Screen("ONBOARDING")
 }
 
+@ExperimentalPagerApi
 @ExperimentalPermissionsApi
 @Composable
 fun LayoutMain() {
@@ -59,7 +62,7 @@ fun LayoutMain() {
                 .padding(padding)
         ) {
             Tabs(navController = navController)
-            NavHost(navController = navController, startDestination = Screen.GUARDIANES.ruta) {
+            NavHost(navController = navController, startDestination = Screen.ONBOARDING.ruta) {
                 composable(Screen.GUARDIANES.ruta) { ScreenGuardianes(navController) }
                 composable(
                     route = "${Screen.GUARDIAN.ruta}/{id}&{nombre}&{numero}&{nuevo}",
@@ -94,6 +97,7 @@ fun LayoutMain() {
                     val aux = backStackEntry.arguments?.getInt("aux")
                     ScreenPerfilRiesgo(aux = aux!!)
                 }
+                composable(Screen.ONBOARDING.ruta){ ScreenOnBoarding(navController = navController)}
 
             }
 
