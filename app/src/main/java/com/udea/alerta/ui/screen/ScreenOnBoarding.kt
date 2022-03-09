@@ -1,25 +1,27 @@
 package com.udea.alerta.ui.screen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.*
+import com.udea.alerta.navigation.Screen
+import com.udea.alerta.ui.composables.ButtonBasic
 import com.udea.alerta.ui.util.OnBoardingPage
+import com.udea.alerta.viewModel.OnBoardingViewModel
 
-//@ExperimentalAnimationApi
+@ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
 fun ScreenOnBoarding(
     navController: NavHostController,
-    //welcomeViewModel: WelcomeViewModel = hiltViewModel()
+    OnBoardingViewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val pages = listOf(
         OnBoardingPage.First,
@@ -35,7 +37,13 @@ fun ScreenOnBoarding(
             state = pagerState,
             verticalAlignment = Alignment.Top
         ) { position ->
-            PagerScreen(onBoardingPage = pages[position])
+            PagerScreen(onBoardingPage = pages[position], position = position, onClick = {
+
+                OnBoardingViewModel.saveOnBoardingState(completed = true)
+                navController.popBackStack()
+                navController.navigate(Screen.GUARDIANES.ruta)
+            })
+
         }
         HorizontalPagerIndicator(
             modifier = Modifier
@@ -44,15 +52,11 @@ fun ScreenOnBoarding(
             pagerState = pagerState
         )
 
-            //welcomeViewModel.saveOnBoardingState(completed = true)
-          /*  navController.popBackStack()
-            navController.navigate(Screen.Home.route)*/
-
     }
 }
 
 @Composable
-fun PagerScreen(onBoardingPage: OnBoardingPage) {
+fun PagerScreen(onBoardingPage: OnBoardingPage, position: Int, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -65,7 +69,7 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
                 .fillMaxWidth(),
             text = onBoardingPage.title,
 
-        )
+            )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,6 +77,11 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
                 .padding(top = 20.dp),
             text = onBoardingPage.description,
 
-        )
+            )
+
+        if (position == 2) {
+            ButtonBasic(text = "Terminar", onClick = onClick)
+        }
+
     }
 }

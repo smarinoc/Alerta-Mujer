@@ -22,4 +22,5 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun PreguntaRepositorioRoom(repo: PreguntaRepositorioRoom): PreguntaRepositorio
+
 }
