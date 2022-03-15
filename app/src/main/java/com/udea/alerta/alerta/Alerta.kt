@@ -82,34 +82,68 @@ class Alerta : AppCompatActivity() {
         clear = findViewById(R.id.clearBtn)
         igual = findViewById(R.id.igualBtn)
 
-        uno.setOnClickListener { numberPressed("1") }
-        dos.setOnClickListener { numberPressed("2") }
-        tres.setOnClickListener { numberPressed("3") }
-        cuatro.setOnClickListener { numberPressed("4") }
-        cinco.setOnClickListener { numberPressed("5") }
-        seis.setOnClickListener { numberPressed("6") }
-        siete.setOnClickListener { numberPressed("7") }
-        ocho.setOnClickListener { numberPressed("8") }
-        nueve.setOnClickListener { numberPressed("9") }
-        cero.setOnClickListener {
-            count2++
-            if(count2 > 2){
+        uno.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("1") }
+        dos.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("2") }
+        tres.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("3") }
+        cuatro.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("4") }
+        cinco.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("5") }
+        seis.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("6") }
+        siete.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("7") }
+        ocho.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("8") }
+        nueve.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("9") }
+        cero.setOnClickListener { count = 0
+            count2 = 0
+            numberPressed("0")
+        }
+        count = 0
+        punto.setOnClickListener {
+            if(count2 == 0){
+                numberPressed(".")
+                count2++
+            }
+        }
+
+        suma.setOnClickListener { count = 0
+            count2 = 0
+            operationPressed(Calculator.SUMA) }
+        resta.setOnClickListener { count = 0
+            count2 = 0
+            operationPressed(Calculator.RESTA) }
+        multiplicar.setOnClickListener {
+            count = 0
+            count2 = 0
+            operationPressed(Calculator.MULTIPLICACION) }
+        dividir.setOnClickListener {
+            count++
+            operationPressed(Calculator.DIVISION)
+            if(count > 2){
                 val intent: Intent = Intent(this, MainActivity()::class.java)
                 startActivity(intent)
             }else{
                 numberPressed("0")
-            }
-        }
-        punto.setOnClickListener { numberPressed(".") }
-
-        suma.setOnClickListener { operationPressed(Calculator.SUMA) }
-        resta.setOnClickListener { operationPressed(Calculator.RESTA) }
-        multiplicar.setOnClickListener { operationPressed(Calculator.MULTIPLICACION) }
-        dividir.setOnClickListener { operationPressed(Calculator.DIVISION) }
+            } }
 
         igual.setOnClickListener { resolvePressed() }
 
-        etMsj = "Necesito de tú ayuda"
+        etMsj = "Necesito de tú ayuda Por favor!!!, me encuentro en peligro"
         btnEnviar = findViewById(R.id.clearBtn)
         if (ActivityCompat.checkSelfPermission(
                 this@Alerta,
@@ -155,7 +189,6 @@ class Alerta : AppCompatActivity() {
                         }
                     }
                 })
-
                 count = 0 // reset count
             }else{
                 resetAll()
