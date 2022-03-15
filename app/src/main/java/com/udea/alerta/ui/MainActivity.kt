@@ -8,12 +8,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.udea.alerta.alerta.Alerta
 import com.udea.alerta.navigation.Screen
-import com.udea.alerta.ui.layout.LayoutMain
 import com.udea.alerta.ui.theme.AlertaTheme
 import com.udea.alerta.viewModel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,17 +32,17 @@ class MainActivity : ComponentActivity() {
             !splashViewModel.isLoading.value
         }
 
-
-
         setContent {
             AlertaTheme {
                 val screen by splashViewModel.startDestination
+                val intent: Intent
                 if(screen != Screen.ONBOARDING.ruta){
-                    val intent: Intent = Intent(this, Alerta()::class.java)
+                    intent = Intent(this, Alerta()::class.java)
                     startActivity(intent)
                 }else{
-                    val navController = rememberNavController()
-                    LayoutMain(startDestination = screen, navController)
+                    intent = Intent(this, App()::class.java)
+                    intent.putExtra("START_DESTINATION", screen);
+                    startActivity(intent)
                 }
 
             }
