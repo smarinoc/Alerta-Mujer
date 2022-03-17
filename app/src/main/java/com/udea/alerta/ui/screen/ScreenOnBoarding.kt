@@ -1,6 +1,7 @@
 package com.udea.alerta.ui.screen
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -8,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -34,6 +36,7 @@ fun ScreenOnBoarding(
         OnBoardingPage.Fifth
     )
     val pagerState = rememberPagerState()
+    OnBoardingViewModel.saveOnBoardingState(completed = true)
 
     Column(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
@@ -44,7 +47,6 @@ fun ScreenOnBoarding(
         ) { position ->
             PagerScreen(onBoardingPage = pages[position], position = position, onClick = {
 
-                OnBoardingViewModel.saveOnBoardingState(completed = true)
                 navController.popBackStack()
                 navController.navigate(Screen.GUARDIANES.ruta)
             })
@@ -71,6 +73,13 @@ fun PagerScreen(onBoardingPage: OnBoardingPage, position: Int, onClick: () -> Un
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .fillMaxHeight(0.7f),
+                painter = painterResource(id = onBoardingPage.image),
+                contentDescription = "Pager Image"
+            )
             Text(
                 modifier = Modifier
                     .fillMaxWidth()

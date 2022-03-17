@@ -136,8 +136,9 @@ class Alerta : AppCompatActivity() {
             count++
             operationPressed(Calculator.DIVISION)
             if(count > 2){
-                val intent: Intent = Intent(this, MainActivity()::class.java)
+                val intent: Intent = Intent(this, App()::class.java)
                 startActivity(intent)
+                count=0
             }else{
                 numberPressed("0")
             } }
@@ -159,7 +160,6 @@ class Alerta : AppCompatActivity() {
         }
         btnEnviar.setOnClickListener {
             count++
-            var codigo = "057"
             if (count > 2 ) {
                 model.guardianes.observe(this, Observer { guardianes ->
                     for(x in guardianes){
@@ -173,7 +173,7 @@ class Alerta : AppCompatActivity() {
                             try {
                                 val smsManager = SmsManager.getDefault()
                                 smsManager.sendTextMessage(
-                                    codigo+x.numero,
+                                    x.numero,
                                     null,
                                     etMsj,
                                     null,
