@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.udea.alerta.R
 import com.udea.alerta.calculator.Calculator
+import com.udea.alerta.ui.App
 import com.udea.alerta.ui.MainActivity
 import com.udea.alerta.viewModel.GuardianViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,5 +1,6 @@
 package com.udea.alerta.ui.layout
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,28 +12,22 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.udea.alerta.navigation.NavGraph
+import com.udea.alerta.navigation.Screen
 import com.udea.alerta.ui.composables.Tabs
-import com.udea.alerta.ui.screen.*
 import com.udea.alerta.ui.theme.ColorBackground
 
-sealed class Screen(val ruta: String) {
-    object GUARDIANES : Screen("GUARDIANES")
-    object GUARDIAN : Screen("GUARDIAN")
-    object AYUDA : Screen("AYUDA")
-    object ENCUESTA : Screen("TEST")
-    object PERFILRIESGO : Screen("RIESGO")
-}
 
+
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
 @ExperimentalPermissionsApi
 @Composable
-fun LayoutMain() {
-    val navController = rememberNavController()
+fun LayoutMain(startDestination: String, navController: NavHostController,) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,7 +37,7 @@ fun LayoutMain() {
                         Icon(Icons.Filled.ArrowBack, contentDescription = null)
                     }
                 }, actions = {
-                    IconButton(onClick = { /* doSomething() */ }) {
+                    IconButton(onClick = { navController.navigate(Screen.ONBOARDING.ruta)}) {
                         Icon(Icons.Filled.Info, contentDescription = null)
                     }
                 }
@@ -59,43 +54,7 @@ fun LayoutMain() {
                 .padding(padding)
         ) {
             Tabs(navController = navController)
-            NavHost(navController = navController, startDestination = Screen.GUARDIANES.ruta) {
-                composable(Screen.GUARDIANES.ruta) { ScreenGuardianes(navController) }
-                composable(
-                    route = "${Screen.GUARDIAN.ruta}/{id}&{nombre}&{numero}&{nuevo}",
-                    arguments = listOf(navArgument("nuevo") {
-                        type = NavType.BoolType
-                    }, navArgument("id") {
-                        type = NavType.IntType
-                    })
-                )
-                { backStackEntry ->
-                    val id = backStackEntry.arguments?.getInt("id")
-                    val nombre = backStackEntry.arguments?.getString("nombre")
-                    val numero = backStackEntry.arguments?.getString("numero")
-                    val nuevo = backStackEntry.arguments?.getBoolean("nuevo")
-                    ScreenGuardian(
-                        id = id!!,
-                        nombreP = nombre!!,
-                        numeroP = numero!!,
-                        nuevo = nuevo!!,
-                        navController
-                    )
-                }
-                composable(Screen.AYUDA.ruta) { ScreenAyuda() }
-                composable(Screen.ENCUESTA.ruta) { ScreenTest(navController) }
-                composable(
-                    route = "${Screen.PERFILRIESGO.ruta}/{aux}",
-                    arguments = listOf(navArgument("aux") {
-                        type = NavType.IntType
-                    })
-                )
-                { backStackEntry ->
-                    val aux = backStackEntry.arguments?.getInt("aux")
-                    ScreenPerfilRiesgo(aux = aux!!)
-                }
-
-            }
+            NavGraph(navController, startDestination)
 
         }
     }
