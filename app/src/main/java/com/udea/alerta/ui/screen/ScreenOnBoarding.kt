@@ -36,7 +36,7 @@ fun ScreenOnBoarding(
         OnBoardingPage.Fifth
     )
     val pagerState = rememberPagerState()
-    OnBoardingViewModel.saveOnBoardingState(completed = true)
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
@@ -46,7 +46,7 @@ fun ScreenOnBoarding(
             verticalAlignment = Alignment.Top
         ) { position ->
             PagerScreen(onBoardingPage = pages[position], position = position, onClick = {
-
+                OnBoardingViewModel.saveOnBoardingState(completed = true)
                 navController.popBackStack()
                 navController.navigate(Screen.GUARDIANES.ruta)
             })
@@ -66,33 +66,43 @@ fun ScreenOnBoarding(
 fun PagerScreen(onBoardingPage: OnBoardingPage, position: Int, onClick: () -> Unit) {
 
     LayoutScreen(title = onBoardingPage.title) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Image(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .fillMaxHeight(0.7f),
-                painter = painterResource(id = onBoardingPage.image),
-                contentDescription = "Pager Image"
-            )
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .padding(top = 20.dp),
-                text = onBoardingPage.description,
-                style = Typography.body1
-            )
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp)
+                        .padding(top = 20.dp),
+                    text = onBoardingPage.description,
+                    style = Typography.body1
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp)
+                        .padding(top = 20.dp),
+                    text = onBoardingPage.instruction,
+                    style = Typography.body1
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+                if (position == 4) {
+                    ButtonBasic(
+                        text = "Empezar",
+                        onClick = onClick,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp)
+                            .padding(horizontal = 20.dp)
+                    )
+                }
 
-            if (position == 4) {
-                ButtonBasic(text = "Empezar", onClick = onClick, modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp).padding(horizontal = 20.dp))
             }
+
         }
     }
 
-}

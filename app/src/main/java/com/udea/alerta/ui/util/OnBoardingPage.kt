@@ -6,38 +6,42 @@ import com.udea.alerta.R
 
 sealed class OnBoardingPage(
 
-    @DrawableRes
-    val image: Int,
     val title: String,
-    val description: String
+    val description: String,
+    val instruction: String
 ) {
     object First : OnBoardingPage(
-        image = R.drawable.imagen_1,
+
         title = "Modo encubierto",
-        description = "La aplicacion alerta cuenta con un modo encubierto donde el ingreso a la aplicacion esta escodido detras de una calculadora," +
-                "se podra ingresar presionando el codigo secreto"
+        description = "Modo oculto donde el ingreso a la aplicación está escondido detrás de una calculadora.",
+        instruction="Para ingresar a la aplicación presione 3 veces seguidas el botón “/” en la calculadora. "
+
     )
 
     object Second : OnBoardingPage(
-        image = R.drawable.imagen_1,
-        title = "Boton de panico",
-        description = "Mediante otro codigo secreto se podra activar un boton de panico que mandara un mensaje de texto, con un mensaje de ayuda a los respectivos guardines registrados en la aplicacion"
+
+        title = "Guardiades",
+        description = "Guarda y edita a tus contactos que estén dispuestos a ayudarte cuando estés en peligro.",
+        instruction="Guarda su nombre y número de teléfono, el mensaje de ayuda llegará vía mensaje de texto a este número."
     )
 
     object Third : OnBoardingPage(
-        image = R.drawable.imagen_1,
-        title = "Guardiades",
-        description = "Crear y modifcar a los guardiniades que seran los que resivan el mensaje de texto cuando se activa el boton de manico"
+
+        title = "Alerta",
+        description = "Cuando te sientas en una situación de peligro contarás con un alerta que enviará un mensaje de texto a cada uno de tus guardianes pidiendo ayuda.",
+        instruction="Para activar la alerta presiona 3 veces el botón “Clean” en la calculadora."
     )
     object Fourth : OnBoardingPage(
-        image = R.drawable.imagen_1,
-        title = "Directorio de Ayudas",
-        description = "Lista de ayudas, donde podra resivir atencion, con la opcion de llama directa desde la aplicacion"
+
+        title = "Directorio de ayudas",
+        description = "Directorio de diferentes programas donde podrás recibir acompañamiento y ayuda en casos de violencia de género.",
+        instruction="Podrás llamar directamente presionando el botón llamar."
     )
 
     object Fifth : OnBoardingPage(
-        image = R.drawable.imagen_1,
-        title = "Test de medicion de riesgo",
-        description = "Test para medir el nivel de risgo en que se encuenta la persona con resultado con recomendaciones"
+
+        title = "Test de riesgo",
+        description = "Podrás llenar un test que medirá los diferentes niveles de riesgo para recibir recomendaciones de acuerdo al nivel.",
+        instruction="Responde todas las preguntas y presiona terminar."
     )
 }

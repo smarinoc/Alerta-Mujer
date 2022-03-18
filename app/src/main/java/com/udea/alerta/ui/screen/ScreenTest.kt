@@ -44,9 +44,9 @@ fun ScreenTest(navController: NavController) {
 fun InfoTest(onClick: ()-> Unit) {
     Card(modifier = Modifier.padding(horizontal = 5.dp)) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(horizontal = 5.dp, vertical = 10.dp)) {
-            Text(text = "Este test evaluara el nivel de riesgo presente de acuerdo a una serie de preguntas", style = typography.body1.copy(textAlign = TextAlign.Center ))
+            Text(text = "Este test evaluará el nivel de riesgo.", style = typography.body1.copy(textAlign = TextAlign.Center ))
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = "Este test solo es valido para mujeres mayores de edad", style = typography.body1.copy(textAlign = TextAlign.Center))
+            Text(text = "Sólo es válido para mujeres mayores de edad.", style = typography.body1.copy(textAlign = TextAlign.Center))
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = "Derechos reservados", style = typography.subtitle1.copy(color = Color.Black))
             Spacer(modifier = Modifier.height(10.dp))
