@@ -38,7 +38,7 @@ fun ScreenPerfilRiesgo(
                         }
                     }
                     2 -> {
-                        LayoutScreen(title = "PELIGRIO MODERADO") {
+                        LayoutScreen(title = "PELIGRO MODERADO") {
                             Text(
                                 text = "• En caso de reincidencia del agresor, no dude en acudir inmediatamente a la autoridad competente (Comisaria de Familia)\n\n" +
                                         "• Acate la medida de protección que le fue otorgada. \n\n" +
